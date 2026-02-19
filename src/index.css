@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+#bottom {
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.841));
+}
+
+* {
+    font-family: 'helvetica';
+}
+
+#heading {
+    font-family: system-ui;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
