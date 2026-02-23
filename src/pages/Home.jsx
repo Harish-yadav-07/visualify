@@ -5,11 +5,17 @@ import Tabs from "../components/Tabs";
 
 const Home = () => {
     const { query } = useSelector((store) => store.search)
+
     return (
-        <div>
+        <div className="w-full">
             <SearchBar />
 
-            {query != '' ? <div><Tabs /><ResultGrid /></div> : ''}
+            {query !== '' ? (
+                <div className="flex flex-col gap-3 sm:gap-4 lg:gap-5">
+                    <Tabs />
+                    <ResultGrid />
+                </div>
+            ) : null}
         </div>
     )
 }

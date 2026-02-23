@@ -14,6 +14,7 @@ const ResultGrid = () => {
             try {
                 dispatch(setLoading())
                 let data = []
+
                 if (activeTab == 'photos') {
                     let response = await fetchPhotos(query)
                     data = response.results.map((item) => ({
@@ -25,17 +26,16 @@ const ResultGrid = () => {
                         url: item.links.html
                     }))
                 }
+
                 if (activeTab == 'videos') {
                     let response = await fetchVideos(query)
 
                     data = response.videos.map((item) => {
 
-                        // 👇 HLS stream find karo (sabse fast load)
                         const hlsVideo = item.video_files.find(v =>
                             v.file_type === "video/mp4" && v.link.includes(".m3u8")
                         );
 
-                        // 👇 fallback medium mp4
                         const mediumVideo =
                             item.video_files.find(v => v.width >= 960 && v.width <= 1280) ||
                             item.video_files[0];
@@ -50,7 +50,6 @@ const ResultGrid = () => {
                         }
                     })
                 }
-
 
                 dispatch(setResults(data))
 
@@ -75,10 +74,19 @@ const ResultGrid = () => {
             </div>
         );
 
-
-
     return (
-        <div className='grid grid-cols-5 gap-5 justify-items-center p-5'>
+        <div
+            className="
+            grid 
+            grid-cols-1 
+            sm:grid-cols-2 
+            md:grid-cols-3 
+            lg:grid-cols-5   /* 👈 laptop EXACT same */
+            gap-3 sm:gap-4 lg:gap-5
+            justify-items-center
+            p-3 sm:p-4 lg:p-5
+            "
+        >
             {results.map((item) => (
                 <ResultCard key={item.id} item={item} />
             ))}
@@ -86,4 +94,4 @@ const ResultGrid = () => {
     )
 }
 
-export default ResultGrid; 
+export default ResultGrid;
